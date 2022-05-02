@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Weather&amp;WebView</string>
+    <string name="title_weather">Weather</string>
+    <string name="title_webView">WebView</string>
+</resources>
