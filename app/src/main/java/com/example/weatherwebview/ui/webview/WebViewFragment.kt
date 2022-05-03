@@ -1,19 +1,13 @@
 package com.example.weatherwebview.ui.webview
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.weatherwebview.R
-import com.example.weatherwebview.data.network.model.RemoteResult
 import com.example.weatherwebview.databinding.FragmentWebviewBinding
-import com.example.weatherwebview.ui.toast
-import com.example.weatherwebview.ui.weather.WeatherViewModel
-import kotlinx.coroutines.launch
 
 class WebViewFragment : Fragment() {
 
@@ -30,6 +24,17 @@ class WebViewFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        configAndRunWebview()
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun configAndRunWebview(){
+        binding.myWebView.webViewClient = MyWebViewClient(binding.progressBar, binding.imageView)
+        binding.myWebView.settings.javaScriptEnabled = true
+        binding.myWebView.loadUrl(getString(R.string.WebviewUrl))
+    }
 
 
     override fun onDestroyView() {

@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Weather&amp;WebView</string>
+
+    <!--Tabs Names-->
+    <string name="title_weather">Weather</string>
+    <string name="title_webView">Webview</string>
+
+    <!--Weather Fragment-->
     <string name="today">Today in Düsseldorf…</string>
     <string name="current_day_icon">current icon</string>
     <string name="second_day_icon">second_day_icon</string>
@@ -18,6 +24,7 @@
     <string name="fourthDayMinTemp">min: %1$sº</string>
     <string name="fourthDayMaxTemp">max: %1$sº</string>
     <string name="currentDayRealfeel">Realfeel® %1$sº</string>
-    <string name="title_weather">Weather</string>
-    <string name="title_webView">Webview</string>
+
+    <!--Webview Fragment-->
+    <string name="WebviewUrl">https://www.c-and-a.com/es/es/shop</string>
 </resources>
