@@ -1,13 +1,12 @@
 package com.example.weatherwebview.ui.weather
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.weatherwebview.domain.GetWeatherUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class WeatherViewModel : ViewModel() {
+@HiltViewModel
+class WeatherViewModel @Inject constructor(private val getWeatherUseCase: GetWeatherUseCase): ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Weather Fragment"
-    }
-    val text: LiveData<String> = _text
+
 }
