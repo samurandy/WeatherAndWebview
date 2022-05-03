@@ -1,5 +1,23 @@
 <resources>
     <string name="app_name">Weather&amp;WebView</string>
+    <string name="today">Today in Düsseldorf…</string>
+    <string name="current_day_icon">current icon</string>
+    <string name="second_day_icon">second_day_icon</string>
+    <string name="third_day_icon">third_day_icon</string>
+    <string name="fourth_day_icon">fourth_day_icon</string>
+    <string name="separate_line">separate_line</string>
+    <string name="currentDayTemp">%1$sº</string>
+    <string name="currentDayDescription">%1$s</string>
+    <string name="secondDayWeekName">%1$s</string>
+    <string name="secondDayMinTemp">min: %1$sº</string>
+    <string name="secondDayMaxTemp">max: %1$sº</string>
+    <string name="thirdDayWeekName">%1$s</string>
+    <string name="thirdDayMinTemp">min: %1$sº</string>
+    <string name="thirdDayMaxTemp">max: %1$sº</string>
+    <string name="fourthDayWeekName">%1$s</string>
+    <string name="fourthDayMinTemp">min: %1$sº</string>
+    <string name="fourthDayMaxTemp">max: %1$sº</string>
+    <string name="currentDayRealfeel">Realfeel® %1$sº</string>
     <string name="title_weather">Weather</string>
-    <string name="title_webView">WebView</string>
+    <string name="title_webView">Webview</string>
 </resources>
