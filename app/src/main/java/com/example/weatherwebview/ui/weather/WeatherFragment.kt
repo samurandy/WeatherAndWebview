@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.weatherwebview.R
 import com.example.weatherwebview.data.network.model.RemoteResult
 import com.example.weatherwebview.databinding.FragmentWeatherBinding
@@ -15,43 +16,41 @@ import com.example.weatherwebview.ui.getDayOfWeek
 import com.example.weatherwebview.ui.loadUrl
 import com.example.weatherwebview.ui.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class WeatherFragment : Fragment() {
 
-    private var _binding: FragmentWeatherBinding? = null
-    private val binding get() = _binding!!
-    private lateinit var viewModel: WeatherViewModel
+    private lateinit var binding: FragmentWeatherBinding
+
+    private val viewModel by viewModels<WeatherViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWeatherBinding.inflate(inflater, container, false)
+        binding = FragmentWeatherBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.run()
-        }
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
 
-        viewModel.error.observe(viewLifecycleOwner) {
-            activity?.toast(it)
+                viewModel.state.collect { updateUi(it) }
+            }
         }
+    }
 
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.progressBar.isVisible = it
-        }
-
-        viewModel.weatherModel.observe(viewLifecycleOwner) { result ->
-            showDataInUI(result)
-        }
+    private fun updateUi(state: WeatherViewModel.UiState) {
+        binding.progressBar.visibility = if (state.loading) View.VISIBLE else View.GONE
+        state.weather?.let { showDataInUI(it) }
+        state.error?.let { activity?.toast(it) }
     }
 
     private fun showDataInUI(result: RemoteResult) {
@@ -96,10 +95,5 @@ class WeatherFragment : Fragment() {
             fourthDayMaxTemp.text =
                 getString(R.string.fourthDayMaxTemp, result.daily[3].temp?.max?.toInt().toString())
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

@@ -7,12 +7,12 @@
     tools:context=".ui.MainActivity">
 
     <WebView
-        android:id="@+id/myWebView"
+        android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/blockingScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.5"
